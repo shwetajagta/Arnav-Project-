@@ -1,0 +1,86 @@
+package locator_Demo5;
+
+
+
+	
+	import java.util.List;
+
+	import org.openqa.selenium.By;
+	import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.WebElement;
+	import org.openqa.selenium.chrome.ChromeDriver;
+
+	
+		public class Test2 {
+		public static void main(String[] args) {
+
+			
+			System.setProperty("webdriver.chrome.driver", "D:\\selenium\\chrome selenium driver_win32\\chromedriver.exe");
+			
+			WebDriver driver=new ChromeDriver();
+			
+			driver.get("https://money.rediff.com/gainers/nse/daily/groupall");
+			driver.manage().window().maximize();
+			
+			// Xpath Axes ,, there are different type of axes provided by Xpath
+			
+			
+			// 1) self ( self means self tagname )  select the current node
+		    String text= driver.findElement(By.xpath("//a[contains(text(),'Ramco Systems Lt')]/self::a")).getText();
+			System.out.println(text);
+			
+			// 2) parent ( it means take a parent tagname)  select the parent of the current node(alawys one)
+			String Text=driver.findElement(By.xpath("//a[contains(text(),'Ramco Systems Lt')]/parent::td")).getText();
+			System.out.println(Text);
+			
+			// 3) child ( it means take a child tagname)    select all the children of the current node ( one or many)
+			List<WebElement> childs=driver.findElements(By.xpath("//a[contains(text(),'Ramco Systems Lt')]/ancestor::tr/child::td"));
+			System.out.println("number od child element = "+ childs.size());
+			
+			// 4) Ancestor ( it is Grandparent tagname) and it will print whole row [  select all ancestor (parent, grandparent etc)]
+	    	String Text2=	driver.findElement(By.xpath("//a[contains(text(),'Ramco Systems Lt')]/ancestor::tr")).getText();
+			System.out.println(Text2);
+			
+			// 5) Descendant ( it is grandchild tagname)  whenever you want to give size or length then always remember use findelements (must use s after findelement)
+			//                 select all the descendant (childeren, grandchildren,etc) of the current node
+			List<WebElement>descendant=driver.findElements(By.xpath("//a[contains(text(),'Ramco Systems Lt')]/ancestor::tr/descendant::*"));
+			System.out.println("number od descendant =="+ descendant.size());
+				
+			String Text3 = driver.findElement(By.xpath("//a[contains(text(),'Ramco Systems Lt')]/ancestor::tr/descendant::td")).getText();
+			System.out.println(Text3);
+			
+			// 6) following ( selects everything in the document after the closing tag of the current node)
+			 
+			List<WebElement>following=driver.findElements(By.xpath("//a[contains(text(),'Ramco Systems Lt')]/ancestor::tr/following::*"));
+			System.out.println("number of following =="+following.size());
+			
+		    String following1 =driver.findElement(By.xpath("//a[contains(text(),'Ramco Systems Lt')]/ancestor::tr/following::td")).getText();
+			System.out.println(following1);
+			
+			String following2 =driver.findElement(By.xpath("//a[contains(text(),'Ramco Systems Lt')]/ancestor::tr/following::tr")).getText();
+			System.out.println(following2);
+			
+			// 7) following-sibling : selects all siblings after the current node
+			List<WebElement>followingsibling=driver.findElements(By.xpath("//a[contains(text(),'Ramco Systems Lt')]/ancestor::tr/following-sibling::tr"));
+			System.out.println("number of following-siblings=="+followingsibling.size());
+			
+			String f=driver.findElement(By.xpath("//a[contains(text(),'Ramco Systems Lt')]/ancestor::tr/following-sibling::tr")).getText();
+			System.out.println(f);
+			
+			// 8) Preceding : select all nodes that before the current node in the document
+		    List<WebElement> preceding1=driver.findElements(By.xpath("//a[contains(text(),'Neogen Chemicals')]/ancestor::tr/preceding::tr"));
+	        System.out.println("number of preceding =="+preceding1.size());
+	        
+		    String preceding=driver.findElement(By.xpath("//a[contains(text(),'Neogen Chemicals')]/ancestor::tr/preceding::td")).getText();
+			System.out.println(preceding);
+			
+			// 9) Preceding--sibling  : select all siblings before the current node
+			List<WebElement> preceding1_siblings =driver.findElements(By.xpath("//a[contains(text(),'Neogen Chemicals')]/ancestor::tr/preceding::td"));
+			System.out.println("number of preceding siblings=="+preceding1_siblings.size()); 
+
+			driver.close();
+		}
+
+	}
+
+}
